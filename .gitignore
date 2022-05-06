@@ -1,0 +1,12 @@
+.idea
+*_gen
+db/dump/*
+cmd/_deprecated
+standalone.env
+.DS_Store
+bin
+cover.out
+report.xml
+sec-report.xml
+.testCoverage.txt
+vendor/

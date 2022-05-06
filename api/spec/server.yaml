@@ -1,0 +1,77 @@
+---
+swagger: "2.0"
+info:
+  description: |
+    #### API for flights management"
+  title: "Flight path API"
+  version: "1.0.0"
+  contact:
+    email: "krinitsinv@gmail.com"
+host: "localhost:8080"
+basePath: "/api/v1"
+schemes:
+  - http
+paths:
+  /path:
+    get:
+      description: Get flight path
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User created
+          schema:
+            "$ref": "#/definitions/PathResponse"
+        400:
+          description: Path is not linked
+          schema:
+            $ref: '#/definitions/error'
+        default:
+          "$ref": "#/responses/InternalServerErrorResponse"
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PathRequest'
+responses:
+  InternalServerErrorResponse:
+    description: Internal server error
+    schema:
+      $ref: '#/definitions/error'
+definitions:
+  PathRequest:
+    type: object
+    required:
+      - flights
+    properties:
+      flights:
+        type: array
+        items:
+          $ref: '#/definitions/flight'
+  PathResponse:
+    type: object
+    properties:
+      path:
+        $ref: '#/definitions/flight'
+  flight:
+    type: object
+    properties:
+      from:
+        type: string
+        minLength: 3
+        maxLength: 3
+      to:
+        type: string
+        minLength: 3
+        maxLength: 3
+  error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string

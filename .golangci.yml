@@ -1,0 +1,51 @@
+# More info on config here: https://github.com/golangci/golangci-lint#config-file
+run:
+  timeout: 3m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - bin
+    - mocks
+    - fixtures
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  govet:
+    check-shadowing: true
+  golint:
+    min-confidence: 0
+  dupl:
+    threshold: 200
+  goconst:
+    min-len:         2
+    min-occurrences: 2
+
+linters:
+  disable-all: true
+  enable:
+    - revive
+    - govet
+    - errcheck
+    - deadcode
+    - structcheck
+    - varcheck
+    - ineffassign
+    - typecheck
+    - dupl
+    - goconst
+    - gosec
+    - goimports
+    - megacheck
+
+issues:
+  exclude-use-default: false
+  exclude:
+    # for "public interface + private struct implementation" cases only!
+    # can be removed in the development phase
+    - (comment on exported (method|function|type|const)|should have( a package)? comment|comment should be of the form)
+    # not for the active development - can be removed in the stable phase
+    - should have a package comment, unless it's in another file for this package
